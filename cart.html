@@ -1,0 +1,209 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Cart - NexoraMart</title>
+    <link rel="stylesheet" href="cart.css">
+</head>
+<body>
+
+    <header class="cart-header">
+        <h2>NexoraMart</h2>
+        <a href="index.html">← Continue Shopping</a>
+    </header>
+
+    <main class="cart-container">
+        <h1>My Shopping Cart 🛒</h1>
+
+        <div id="cartItems"></div>
+
+        <div id="cartSummary" class="cart-summary">
+            <h2>Order Summary</h2>
+            <h3>Total: ₹<span id="cartTotal">0</span></h3>
+            <button onclick="placeOrder()">Proceed to Checkout</button>
+        </div>
+
+        <!-- Payment Section -->
+<section id="paymentSection" class="payment-section"
+         style="display: none;">
+
+    <div class="payment-container">
+
+        <h2>Choose Payment Method</h2>
+        <p>Select your preferred payment option</p>
+
+        <div class="payment-option">
+            <input type="radio" name="payment" value="UPI">
+            <label>UPI (Google Pay / PhonePe / Paytm)</label>
+        </div>
+
+        <div class="payment-option">
+            <input type="radio" name="payment" value="Card">
+            <label>Credit / Debit Card</label>
+        </div>
+
+        <div class="payment-option">
+            <input type="radio" name="payment" value="Net Banking">
+            <label>Net Banking</label>
+        </div>
+
+        <div class="payment-option">
+            <input type="radio" name="payment" value="COD">
+            <label>Cash on Delivery</label>
+        </div>
+
+        <h3 id="paymentTotal"></h3>
+
+        <button onclick="makePayment()" class="pay-btn">
+            Pay Now
+        </button>
+
+    </div>
+</section>
+    </main>
+
+    <script>
+        let cart = JSON.parse(localStorage.getItem("nexoraCart")) || [];
+
+        function displayCart() {
+            const cartItems = document.getElementById("cartItems");
+            const cartSummary = document.getElementById("cartSummary");
+            const cartTotal = document.getElementById("cartTotal");
+
+            if (cart.length === 0) {
+                cartItems.innerHTML = `
+                    <div class="empty-cart">
+                        <div class="empty-icon">🛒</div>
+                        <h2>Your Cart is Empty!</h2>
+                        <p>Select some products to start shopping.</p>
+                        <a href="index.html">Continue Shopping</a>
+                    </div>
+                `;
+
+                cartSummary.style.display = "none";
+                return;
+            }
+
+            let total = 0;
+
+            cartItems.innerHTML = cart.map((item, index) => {
+                total += item.price * item.quantity;
+
+                return `
+                    <div class="cart-item">
+                        <img src="${item.image}" alt="${item.name}"
+                             onerror="this.style.display='none'">
+
+                        <div class="item-details">
+                            <h3>${item.name}</h3>
+                            <p>Price: ₹${item.price}</p>
+                            <p>Subtotal: ₹${item.price * item.quantity}</p>
+                        </div>
+
+                        <div class="quantity-controls">
+                            <button onclick="changeQuantity(${index}, -1)">−</button>
+                            <span>${item.quantity}</span>
+                            <button onclick="changeQuantity(${index}, 1)">+</button>
+                        </div>
+
+                        <button class="remove-btn"
+                                onclick="removeItem(${index})">
+                            Remove
+                        </button>
+                    </div>
+                `;
+            }).join("");
+
+            cartTotal.textContent = total;
+            cartSummary.style.display = "block";
+        }
+
+        function changeQuantity(index, change) {
+            cart[index].quantity += change;
+
+            if (cart[index].quantity <= 0) {
+                cart.splice(index, 1);
+            }
+
+            saveCart();
+        }
+
+        function removeItem(index) {
+            cart.splice(index, 1);
+            saveCart();
+        }
+
+        function saveCart() {
+            localStorage.setItem("nexoraCart", JSON.stringify(cart));
+            displayCart();
+        }
+
+function placeOrder() {
+
+    if (cart.length === 0) {
+        alert("Your cart is empty!");
+        return;
+    }
+
+    // Hide cart summary
+    document.getElementById("cartSummary").style.display = "none";
+
+    // Hide cart heading and items
+    document.querySelector(".cart-container > h1").style.display = "none";
+    document.getElementById("cartItems").style.display = "none";
+
+    // Show payment section
+    document.getElementById("paymentSection").style.display = "block";
+
+    // Calculate total amount
+    let total = cart.reduce((sum, item) => {
+        return sum + (item.price * item.quantity);
+    }, 0);
+
+    document.getElementById("paymentTotal").innerText =
+        "Total Amount: ₹" + total.toFixed(2);
+
+    // Scroll to payment section
+    document.getElementById("paymentSection")
+        .scrollIntoView({ behavior: "smooth" });
+}
+function makePayment() {
+
+    let selectedPayment = document.querySelector(
+        'input[name="payment"]:checked'
+    );
+
+    if (!selectedPayment) {
+        alert("Please select a payment method!");
+        return;
+    }
+
+    let method = selectedPayment.value;
+
+    if (method === "COD") {
+
+        alert("🎉 Your order has been placed successfully!");
+
+        localStorage.removeItem("nexoraCart");
+
+        cart = [];
+
+        window.location.href = "index.html";
+
+    } else {
+
+        alert(
+            "You selected " + method +
+            ". Online payment gateway integration is required."
+        );
+
+    }
+}
+
+        displayCart();
+    </script>
+
+</body>
+</html>

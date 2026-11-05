@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login | NexoraMart</title>
+
+    <!-- Keep style.css first and login.css second -->
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="./login.css">
+</head>
+
+<body class="auth-page">
+
+    <!-- Brand Header -->
+    <header class="auth-header">
+        <h1>NexoraMart</h1>
+        <p>Your Fresh Grocery Shopping Partner</p>
+    </header>
+
+    <!-- Main Card -->
+    <main class="auth-card">
+
+        <!-- LOGIN SCREEN -->
+        <section id="loginSection">
+            <h2>Welcome Back!</h2>
+            <p class="auth-subtitle">
+                Login to continue shopping with NexoraMart.
+            </p>
+
+            <p id="loginError" class="error-message hidden"></p>
+
+            <form id="loginForm">
+                <div class="form-group">
+                    <label for="loginEmail">Email Address</label>
+                    <input
+                        type="email"
+                        id="loginEmail"
+                        placeholder="Enter your email"
+                        required
+                    >
+                </div>
+
+                <div class="form-group">
+                    <label for="loginPassword">Password</label>
+                    <input
+                        type="password"
+                        id="loginPassword"
+                        placeholder="Enter your password"
+                        required
+                    >
+                </div>
+
+                <div class="forgot-link">
+                    <a href="#" id="forgotPasswordLink">Forgot Password?</a>
+                </div>
+
+                <button type="submit" class="auth-btn">Login</button>
+            </form>
+
+            <div class="auth-footer">
+                Don't have an account?
+                <a href="register.html">Register Now</a>
+            </div>
+        </section>
+
+        <!-- MOBILE NUMBER SCREEN -->
+        <section id="mobileSection" class="hidden">
+            <div class="step-icon">📱</div>
+
+            <h2>Forgot Password?</h2>
+            <p class="auth-subtitle">
+                Enter your registered mobile number to continue.
+            </p>
+
+            <form id="mobileForm">
+                <div class="form-group">
+                    <label for="mobileNumber">Mobile Number</label>
+
+                    <div class="phone-input">
+                        <span>+91</span>
+                        <input
+                            type="tel"
+                            id="mobileNumber"
+                            placeholder="Enter 10-digit number"
+                            maxlength="10"
+                            pattern="[0-9]{10}"
+                            required
+                        >
+                    </div>
+                </div>
+
+                <p id="mobileError" class="error-message hidden"></p>
+
+                <button type="submit" class="auth-btn">
+                    Send OTP
+                </button>
+            </form>
+
+            <div class="back-link">
+                <a href="#" class="backToLogin">← Back to Login</a>
+            </div>
+        </section>
+
+        <!-- OTP SCREEN -->
+        <section id="otpSection" class="hidden">
+            <div class="step-icon">🔐</div>
+
+            <h2>Verify OTP</h2>
+            <p class="auth-subtitle">
+                Enter the 6-digit OTP to verify your mobile number.
+            </p>
+
+            <form id="otpForm">
+                <div class="form-group">
+                    <label for="otpInput">Enter OTP</label>
+                    <input
+                        type="text"
+                        id="otpInput"
+                        placeholder="Enter 6-digit OTP"
+                        maxlength="6"
+                        pattern="[0-9]{6}"
+                        required
+                    >
+                </div>
+
+                <p id="otpError" class="error-message hidden"></p>
+
+                <button type="submit" class="auth-btn">
+                    Verify OTP
+                </button>
+            </form>
+
+            <div class="resend-link">
+                Didn't receive OTP?
+                <a href="#" id="resendOtp">Resend OTP</a>
+            </div>
+
+            <div class="back-link">
+                <a href="#" class="backToLogin">← Back to Login</a>
+            </div>
+        </section>
+
+        <!-- NEW PASSWORD SCREEN -->
+        <section id="newPasswordSection" class="hidden">
+            <div class="step-icon">🔑</div>
+
+            <h2>Create New Password</h2>
+            <p class="auth-subtitle">
+                Enter and confirm your new password.
+            </p>
+
+            <form id="passwordForm">
+                <div class="form-group">
+                    <label for="newPassword">New Password</label>
+                    <input
+                        type="password"
+                        id="newPassword"
+                        placeholder="Enter new password"
+                        minlength="8"
+                        required
+                    >
+                </div>
+
+                <div class="form-group">
+                    <label for="confirmPassword">Confirm Password</label>
+                    <input
+                        type="password"
+                        id="confirmPassword"
+                        placeholder="Confirm new password"
+                        minlength="8"
+                        required
+                    >
+                </div>
+
+                <p id="passwordError" class="error-message hidden"></p>
+
+                <button type="submit" class="auth-btn">
+                    Reset Password
+                </button>
+            </form>
+        </section>
+
+        <!-- SUCCESS SCREEN -->
+        <section id="successSection" class="hidden">
+            <div class="success-icon">✓</div>
+
+            <h2>Password Reset Successful!</h2>
+            <p class="auth-subtitle">
+                Your password has been updated successfully.
+                You can now login with your new password.
+            </p>
+
+            <button type="button" id="continueLogin" class="auth-btn">
+                Continue to Login
+            </button>
+        </section>
+
+    </main>
+
+    <footer class="auth-bottom">
+        © 2026 NexoraMart. All rights reserved.
+    </footer>
+
+    <script>
+        // Show only the selected screen
+        function showSection(sectionId) {
+            const sections = document.querySelectorAll(".auth-card section");
+
+            sections.forEach(section => {
+                section.classList.add("hidden");
+            });
+
+            document.getElementById(sectionId).classList.remove("hidden");
+        }
+
+        // Demo account: create only if no account is stored
+        if (!localStorage.getItem("nexoraEmail")) {
+            localStorage.setItem("nexoraEmail", "test@nexoramart.com");
+            localStorage.setItem("nexoraPassword", "Nexora@123");
+        }
+
+        function showError(elementId, message) {
+            const element = document.getElementById(elementId);
+            element.textContent = message;
+            element.classList.remove("hidden");
+        }
+
+        function clearError(elementId) {
+            document.getElementById(elementId).classList.add("hidden");
+        }
+
+        // LOGIN
+        document.getElementById("loginForm").addEventListener("submit", function(event) {
+            event.preventDefault();
+
+            const email = document.getElementById("loginEmail").value.trim();
+            const password = document.getElementById("loginPassword").value;
+
+            const savedEmail = localStorage.getItem("nexoraEmail");
+            const savedPassword = localStorage.getItem("nexoraPassword");
+
+            if (email === savedEmail && password === savedPassword) {
+                alert("Login successful!");
+                window.location.href = "index.html";
+            } else {
+                showError("loginError", "Invalid email or password.");
+            }
+        });
+
+        // FORGOT PASSWORD
+        document.getElementById("forgotPasswordLink").addEventListener("click", function(event) {
+            event.preventDefault();
+            showSection("mobileSection");
+        });
+
+        // BACK TO LOGIN
+        document.querySelectorAll(".backToLogin").forEach(link => {
+            link.addEventListener("click", function(event) {
+                event.preventDefault();
+                showSection("loginSection");
+            });
+        });
+
+        // SEND OTP
+        document.getElementById("mobileForm").addEventListener("submit", function(event) {
+            event.preventDefault();
+
+            const mobile = document.getElementById("mobileNumber").value.trim();
+
+            if (!/^[0-9]{10}$/.test(mobile)) {
+                showError("mobileError", "Please enter a valid 10-digit mobile number.");
+                return;
+            }
+
+            localStorage.setItem("nexoraResetMobile", mobile);
+
+            alert("Demo OTP: 123456");
+            showSection("otpSection");
+        });
+
+        // VERIFY OTP
+        document.getElementById("otpForm").addEventListener("submit", function(event) {
+            event.preventDefault();
+
+            const otp = document.getElementById("otpInput").value.trim();
+
+            if (otp === "123456") {
+                showSection("newPasswordSection");
+            } else {
+                showError("otpError", "Invalid OTP. Please try again.");
+            }
+        });
+
+        // RESEND OTP
+        document.getElementById("resendOtp").addEventListener("click", function(event) {
+            event.preventDefault();
+            alert("Demo OTP: 123456");
+        });
+
+        // RESET PASSWORD
+        document.getElementById("passwordForm").addEventListener("submit", function(event) {
+            event.preventDefault();
+
+            const newPassword = document.getElementById("newPassword").value;
+            const confirmPassword = document.getElementById("confirmPassword").value;
+
+            if (newPassword.length < 8) {
+                showError("passwordError", "Password must contain at least 8 characters.");
+                return;
+            }
+
+            if (newPassword !== confirmPassword) {
+                showError("passwordError", "Passwords do not match.");
+                return;
+            }
+
+            localStorage.setItem("nexoraPassword", newPassword);
+
+            showSection("successSection");
+        });
+
+        // RETURN TO LOGIN
+        document.getElementById("continueLogin").addEventListener("click", function() {
+            document.getElementById("loginPassword").value = "";
+            showSection("loginSection");
+        });
+    </script>
+
+</body>
+</html>
