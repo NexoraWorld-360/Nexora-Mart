@@ -854,3 +854,338 @@ footer {
         grid-template-columns: 1fr;
     }
 }
+
+
+/* ==========================================
+   NEXORAMART - MOBILE RESPONSIVE FIX
+   ========================================== */
+
+/* Prevent horizontal scrolling */
+html, body {
+    width: 100%;
+    max-width: 100%;
+    overflow-x: hidden;
+}
+
+img {
+    max-width: 100%;
+}
+
+/* Desktop navigation improvements */
+.navbar {
+    width: 100%;
+    padding: 15px 4%;
+    gap: 15px;
+}
+
+.navbar nav {
+    margin-left: 15px;
+    gap: 15px;
+}
+
+/* ==========================================
+   MOBILE DESIGN
+   ========================================== */
+
+@media screen and (max-width: 700px) {
+
+    /* NAVIGATION BAR */
+    .navbar {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+        align-items: center;
+        gap: 12px;
+        padding: 12px 15px;
+    }
+
+    .logo {
+        font-size: 22px;
+    }
+
+    .navbar nav {
+        order: 3;
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 10px;
+        margin: 0;
+        padding-top: 8px;
+    }
+
+    .navbar nav a {
+        font-size: 13px;
+        padding: 9px 14px;
+        border-radius: 20px;
+    }
+
+    .nav-actions {
+        gap: 8px;
+    }
+
+    .login-link {
+        font-size: 12px;
+    }
+
+    .cart-button {
+        font-size: 12px;
+        padding: 9px 12px;
+        white-space: nowrap;
+    }
+
+    /* HERO SECTION */
+    .hero-section {
+        flex-direction: column;
+        text-align: center;
+        min-height: auto;
+        padding: 30px 16px;
+        gap: 22px;
+        border-radius: 0 0 20px 20px;
+    }
+
+    .hero-content {
+        width: 100%;
+    }
+
+    .hero-badge {
+        font-size: 11px;
+        padding: 8px 14px;
+        margin-bottom: 15px;
+    }
+
+    .hero-content h1 {
+        font-size: 30px;
+        line-height: 1.2;
+        margin-bottom: 14px;
+    }
+
+    .hero-description {
+        font-size: 14px;
+        line-height: 1.5;
+        margin-bottom: 20px;
+    }
+
+    .hero-button {
+        font-size: 14px;
+        padding: 12px 24px;
+    }
+
+    /* HERO IMAGE SMALLER */
+    .hero-image {
+        width: 100%;
+        justify-content: center;
+    }
+
+    .hero-image img {
+        width: 100%;
+        max-width: 320px;
+        height: 170px;
+        object-fit: cover;
+        border-radius: 15px;
+    }
+
+    /* COLLECTION SECTION */
+    .collection-section {
+        padding: 35px 12px;
+    }
+
+    .section-label {
+        font-size: 12px;
+        letter-spacing: 2px;
+    }
+
+    .section-heading h2 {
+        font-size: 26px;
+    }
+
+    .section-heading > p:last-child {
+        font-size: 14px;
+    }
+
+    /* SEARCH BOX */
+    .product-search {
+        width: 100%;
+        margin: 20px auto;
+    }
+
+    .product-search input {
+        width: 100%;
+        padding: 12px 15px;
+        font-size: 13px;
+    }
+
+    /* CATEGORY FILTERS */
+    .category-filters {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 8px;
+        margin: 18px 0 22px;
+    }
+
+    .filter-button {
+        font-size: 12px;
+        padding: 9px 12px;
+    }
+
+    /* PRODUCT GRID */
+    #productGrid,
+    .product-grid {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 10px;
+        width: 100%;
+    }
+
+    /* PRODUCT IMAGES SMALLER */
+    .product-card {
+        width: 100%;
+        min-width: 0;
+        border-radius: 12px;
+    }
+
+    .product-card .product-image {
+        width: 100%;
+        height: 105px;
+        object-fit: cover;
+        display: block;
+    }
+
+    /* Also support images inside a wrapper */
+    .product-card .product-image img {
+        width: 100%;
+        height: 105px;
+        object-fit: cover;
+        display: block;
+    }
+
+    .product-info {
+        padding: 9px;
+    }
+
+    .product-category {
+        font-size: 10px;
+        margin-bottom: 5px;
+    }
+
+    .product-info h3 {
+        font-size: 13px;
+        line-height: 1.3;
+        margin-bottom: 7px;
+    }
+
+    .product-price {
+        font-size: 15px;
+        margin-bottom: 9px;
+    }
+
+    .add-button {
+        padding: 9px 5px;
+        font-size: 12px;
+    }
+
+    /* ABOUT SECTION */
+    .about-section {
+        padding: 30px 16px;
+    }
+
+    .about-section h2 {
+        font-size: 23px;
+        text-align: center;
+    }
+
+    .about-section p {
+        font-size: 13px;
+        line-height: 1.7;
+        text-align: justify;
+    }
+
+    /* FOOTER */
+    .footer {
+        padding: 16px 10px;
+        font-size: 12px;
+        text-align: center;
+    }
+}
+
+/* EXTRA SMALL MOBILE SCREENS */
+@media screen and (max-width: 380px) {
+
+    .navbar {
+        padding: 10px;
+        gap: 8px;
+    }
+
+    .logo {
+        font-size: 19px;
+    }
+
+    .navbar nav {
+        gap: 6px;
+    }
+
+    .navbar nav a {
+        font-size: 12px;
+        padding: 8px 11px;
+    }
+
+    .login-link {
+        font-size: 11px;
+    }
+
+    .cart-button {
+        font-size: 11px;
+        padding: 8px;
+    }
+
+    .hero-content h1 {
+        font-size: 27px;
+    }
+
+    .hero-image img {
+        height: 150px;
+    }
+
+    #productGrid,
+    .product-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 8px;
+    }
+
+    .product-card .product-image,
+    .product-card .product-image img {
+        height: 95px;
+    }
+}
+
+/* Reduce product images on mobile only */
+@media screen and (max-width: 700px) {
+
+    #productGrid .product-image {
+        height: 90px !important;
+        width: 100% !important;
+        object-fit: contain !important;
+        display: block;
+    }
+
+    #productGrid .product-image img {
+        height: 90px !important;
+        width: 100% !important;
+        object-fit: contain !important;
+    }
+
+}
+
+/* Very small mobile screens */
+@media screen and (max-width: 380px) {
+
+    #productGrid .product-image {
+        height: 75px !important;
+    }
+
+    #productGrid .product-image img {
+        height: 75px !important;
+    }
+
+}
